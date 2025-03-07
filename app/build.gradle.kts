@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.ksp)
   id("com.google.dagger.hilt.android")
+  id("com.google.gms.google-services")
 }
 
 android {
@@ -53,9 +54,12 @@ dependencies {
   implementation(libs.hilt.compose.navigation)
   implementation(libs.androidx.room.ktx)
 
+  implementation(platform(libs.firebase.bom))
+
   implementation(libs.androidx.room.compiler)
   implementation(libs.androidx.room.runtime)
 
+  implementation(libs.firebase.auth)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.activity.compose)
@@ -65,6 +69,7 @@ dependencies {
   implementation(libs.androidx.ui.tooling.preview)
   implementation(libs.androidx.material3)
   testImplementation(libs.junit)
+  testImplementation (libs.mockk.android)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
   androidTestImplementation(platform(libs.androidx.compose.bom))

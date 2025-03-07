@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256509168108",
+    "project_id": "treinai-3333",
+    "storage_bucket": "treinai-3333.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256509168108:android:a9a959d8f1e067106518c9",
+        "android_client_info": {
+          "package_name": "com.samuel.treinaiappcompose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTBpFZhss70gl1MMzYfVJwN1na9JCJXfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
