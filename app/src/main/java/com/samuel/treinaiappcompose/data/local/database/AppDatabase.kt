@@ -13,21 +13,19 @@ import com.samuel.treinaiappcompose.data.local.database.model.WorkoutModel
   entities = [ExerciseModel::class, WorkoutModel::class, ExerciseSetModel::class],
   version = 1
 )
-abstract class AppDatabase {
-  abstract class AppDatabase : RoomDatabase() {
-    /**
-     * WORKOUT DAO
-     */
-    abstract fun getWorkoutDao(): WorkoutDao
+abstract class AppDatabase : RoomDatabase() {
+  /**
+   * WORKOUT DAO
+   */
+  abstract fun getWorkoutDao(): WorkoutDao
 
-    /**
-     * EXERCISES DAO
-     */
-    abstract fun getExerciseDao(): ExerciseDao
+  /**
+   * EXERCISES DAO
+   */
+  abstract fun getExerciseDao(): ExerciseDao
 
-    /**
-     * EXERCISE_SETS DAO
-     */
-    abstract fun getExerciseSetDao(): ExerciseSetDao
-  }
+  /**
+   * EXERCISE_SETS DAO
+   */
+  abstract fun getExerciseSetDao(): ExerciseSetDao
 }
