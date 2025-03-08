@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuel.treinaiappcompose.ui.screens.HomeScreen
+import com.samuel.treinaiappcompose.ui.screens.OnboardingScreen
 import com.samuel.treinaiappcompose.ui.screens.SignInScreen
 import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
 import com.samuel.treinaiappcompose.ui.theme.TreinaiappcomposeTheme
@@ -28,9 +29,11 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       TreinaiappcomposeTheme {
-        val vm : SignInScreenViewModel = hiltViewModel()
-        SignInScreen(vm)
+//        val vm : SignInScreenViewModel = hiltViewModel()
+//        SignInScreen(vm)
+        OnboardingScreen()
       }
+
     }
   }
 }

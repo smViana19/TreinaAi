@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Treina Aí</string>
+    <string name="man_onboarding_description">Imagem homem tela de inicio</string>
+    <string name="onboarding_phrase">Supere seus limites a cada dia.</string>
+    <string name="onboarding_phrase_2">Mente saudável, corpo forte.</string>
+    <string name="onboarding_app_description">Customize seu treino, gerencie seu progresso tudo em um só app</string>
+
+</resources>
