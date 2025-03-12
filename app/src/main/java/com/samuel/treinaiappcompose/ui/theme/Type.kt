@@ -1,22 +1,48 @@
 package com.samuel.treinaiappcompose.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuel.treinaiappcompose.R
 
-// Set of Material typography styles to start with
+val primaryFontFamilyBold = FontFamily(
+  Font(R.font.inter_bold)
+)
+val primaryFontFamilySemiBold = FontFamily(
+  Font(R.font.inter_semi_bold)
+)
+
+val primaryFontFamilyRegular = FontFamily(
+  Font(R.font.inter_regular)
+)
+
 val Typography = Typography(
-  bodyLarge = TextStyle(
-    fontFamily = FontFamily.Default,
-    fontWeight = FontWeight.Normal,
+  titleLarge = TextStyle(
+    fontFamily = primaryFontFamilyBold,
+    fontSize = 24.sp,
+    letterSpacing = 0.5.sp,
+  ),
+  titleMedium = TextStyle(
+    fontFamily = primaryFontFamilySemiBold,
+    fontSize = 16.sp
+  ),
+  titleSmall = TextStyle(
+    fontFamily = primaryFontFamilyRegular,
     fontSize = 16.sp,
-    lineHeight = 24.sp,
     letterSpacing = 0.5.sp
+  ),
+  labelMedium = TextStyle(
+    fontFamily = primaryFontFamilyRegular,
+    fontSize = 16.sp,
   )
+
+
   /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -34,10 +60,4 @@ val Typography = Typography(
     )
     */
 )
-val primaryFontFamilyBold = FontFamily(
-  Font(R.font.inter_bold, FontWeight.Bold)
-)
 
-val primaryFontFamilyRegular = FontFamily(
-  Font(R.font.inter_regular, FontWeight.Normal)
-)
