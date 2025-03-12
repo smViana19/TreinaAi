@@ -5,4 +5,16 @@
     <string name="onboarding_phrase_2">A healthy mind in a strong body.</string>
     <string name="onboarding_app_description">Thousand of fitness classes, gyms, and wellness, all in one app</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up_screen_title">Hi, Sign up for an account!</string>
+    <string name="sign_up_screen_subtitle">Enter your email and password for sign up!</string>
+    <string name="email_placeholder">Your email</string>
+    <string name="email_label">Email</string>
+    <string name="email_icon_description">Email Icon</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="password_icon">Password icon</string>
+    <string name="password_placeholder">Your password</string>
+    <string name="name_label">Name</string>
+    <string name="name_placeholder">Your name</string>
+    <string name="name_icon">Name icon</string>
 </resources>

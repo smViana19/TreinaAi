@@ -6,5 +6,16 @@
     <string name="onboarding_phrase_2">Mente saudável, corpo forte.</string>
     <string name="onboarding_app_description">Customize seu treino, gerencie seu progresso tudo em um só app</string>
     <string name="sign_up">Registrar</string>
-
+    <string name="sign_up_screen_title">Olá, crie sua conta!</string>
+    <string name="sign_up_screen_subtitle">Registre com seu email e sua senha!</string>
+    <string name="email_placeholder">Seu email</string>
+    <string name="email_label">Email</string>
+    <string name="email_icon_description">Icone email</string>
+    <string name="hide_password">Esconder senha</string>
+    <string name="show_password">Mostrar senha</string>
+    <string name="password_icon">Icone senha</string>
+    <string name="password_placeholder">Sua senha</string>
+    <string name="name_label">Nome</string>
+    <string name="name_placeholder">Seu nome</string>
+    <string name="name_icon">Icone nome</string>
 </resources>
