@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -15,6 +16,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +38,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
+import com.samuel.treinaiappcompose.ui.theme.Typography
 
 
 @Composable
@@ -46,16 +50,13 @@ fun AppButton(
   icon: (@Composable (() -> Unit))? = null,
   //trail icon
   //leading icon
-  textColor: Color = Color.White,
+  textColor: Color = Color.Unspecified,
   enabled: Boolean = true,
   shape: Shape = ButtonDefaults.shape,
   colors: ButtonColors = ButtonDefaults.buttonColors(),
   elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
   border: BorderStroke? = null,
-  fontSize: TextUnit = TextUnit.Unspecified,
-  fontStyle: FontStyle? = null,
-  fontWeight: FontWeight? = null,
-  fontFamily: FontFamily? = null,
+  style: TextStyle = LocalTextStyle.current,
   contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
   iconSpacing: Dp = 8.dp
 ) {
@@ -98,10 +99,7 @@ fun AppButton(
             Text(
               text = text,
               color = textColor,
-              fontSize = fontSize,
-              fontStyle = fontStyle,
-              fontWeight = fontWeight,
-              fontFamily = fontFamily
+              style = style,
             )
           }
 
@@ -119,22 +117,22 @@ fun DefaultAppButton(
   onClick: () -> Unit,
   text: String,
   shape: Shape = RoundedCornerShape(12.dp),
-
+  style: TextStyle = Typography.titleMedium
 ) {
   AppButton(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier.fillMaxWidth().height(56.dp),
     onClick = {
       onClick()
     },
     shape = shape,
-    colors = ButtonColors(
-      containerColor = Color(0xFF111827),
-      contentColor = Color.White,
-      disabledContainerColor = Color(0xFF111827),
-      disabledContentColor = Color.White
+    colors = ButtonDefaults.buttonColors(
+      containerColor = MaterialTheme.colorScheme.primary,
+      contentColor = MaterialTheme.colorScheme.onPrimary,
+      disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
+      disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
     ),
     text = text,
-    
+    style = style
   )
 }
 
@@ -142,7 +140,7 @@ fun DefaultAppButton(
 @Composable
 private fun AppButtonPreview() {
   AppTheme {
-    var isLoading by remember { mutableStateOf(false) }
+    val isLoading by remember { mutableStateOf(false) }
     AppButton(
       onClick = {},
       isLoading = isLoading,
