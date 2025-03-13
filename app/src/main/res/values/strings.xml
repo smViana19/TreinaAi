@@ -17,4 +17,5 @@
     <string name="name_label">Name</string>
     <string name="name_placeholder">Your name</string>
     <string name="name_icon">Name icon</string>
+    <string name="back_icon">Back icon</string>
 </resources>
