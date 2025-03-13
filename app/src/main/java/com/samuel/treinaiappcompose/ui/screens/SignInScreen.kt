@@ -30,11 +30,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.AppCheckbox
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
 import com.samuel.treinaiappcompose.ui.components.AppTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
+import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
 
@@ -42,6 +45,7 @@ import com.samuel.treinaiappcompose.ui.theme.Typography
 @Composable
 fun SignInScreen(
 //  viewModel: SignInScreenViewModel
+  navController: NavController
 ) {
 
   val focusManager = LocalFocusManager.current
@@ -57,6 +61,7 @@ fun SignInScreen(
         title = {},
         navigationIcon = {
           IconButton(onClick = {
+            navController.navigate(Screens.ONBOARDING_SCREEN.name)
           }) {
             Icon(
               painter = painterResource(R.drawable.ic_back_24),
@@ -158,8 +163,9 @@ fun SignInScreen(
 @Preview
 @Composable
 private fun SignInScreenPreview() {
+  val navController = rememberNavController()
   AppTheme {
     //  val vm = SignInScreenViewModel()
-    SignInScreen()
+    SignInScreen(navController)
   }
 }

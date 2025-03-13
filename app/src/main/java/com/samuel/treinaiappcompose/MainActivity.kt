@@ -4,21 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.samuel.treinaiappcompose.ui.screens.HomeScreen
+import com.samuel.treinaiappcompose.ui.navigation.MainNavigation
 import com.samuel.treinaiappcompose.ui.screens.OnboardingScreen
-import com.samuel.treinaiappcompose.ui.screens.SignInScreen
 import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
-import com.samuel.treinaiappcompose.ui.theme.TreinaiappcomposeTheme
-import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
-import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
+import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,10 +17,8 @@ class MainActivity : ComponentActivity() {
 //    enableEdgeToEdge()
 
     setContent {
-      TreinaiappcomposeTheme {
-//        val vm : SignInScreenViewModel = hiltViewModel()
-//        SignInScreen(vm)
-        OnboardingScreen()
+      AppTheme {
+        MainNavigation()
       }
 
     }

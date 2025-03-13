@@ -24,14 +24,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
+import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
 import com.samuel.treinaiappcompose.ui.theme.primaryFontFamilyRegular
 
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(navController: NavController) {
 
   Box(
     modifier = Modifier
@@ -95,12 +98,16 @@ fun OnboardingScreen() {
       Spacer(modifier = Modifier.height(16.dp))
       Column(modifier = Modifier.fillMaxWidth()) {
         DefaultAppButton(
-          onClick = {},
+          onClick = {
+            navController.navigate(Screens.SIGNUP_SCREEN.name)
+          },
           text = stringResource(R.string.sign_up)
         )
         Spacer(modifier = Modifier.height(8.dp))
         DefaultAppButton(
-          onClick = {},
+          onClick = {
+            navController.navigate(Screens.SIGNIN_SCREEN.name)
+          },
           text = stringResource(R.string.login)
         )
       }
@@ -112,7 +119,8 @@ fun OnboardingScreen() {
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingScreenPreview() {
+  val navController = rememberNavController()
   AppTheme {
-    OnboardingScreen()
+    OnboardingScreen(navController)
   }
 }
