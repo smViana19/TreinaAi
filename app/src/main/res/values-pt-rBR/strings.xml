@@ -19,4 +19,8 @@
     <string name="name_placeholder">Seu nome</string>
     <string name="name_icon">Icone nome</string>
     <string name="back_icon">Icone voltar</string>
+    <string name="sign_in_screen_title">Olá, Seja bem vindo novamente!</string>
+    <string name="sign_in_subtitle">Faça login com sua conta</string>
+    <string name="remember_credentials">Lembrar-me</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
 </resources>

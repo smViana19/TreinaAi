@@ -18,4 +18,9 @@
     <string name="name_placeholder">Your name</string>
     <string name="name_icon">Name icon</string>
     <string name="back_icon">Back icon</string>
+    <string name="sign_in_screen_title">Hi, Welcome Back!</string>
+    <string name="sign_in_subtitle">Login in to your account</string>
+    <string name="remember_credentials">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login" translatable="false">Login</string>
 </resources>
