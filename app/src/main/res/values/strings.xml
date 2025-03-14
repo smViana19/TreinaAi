@@ -23,4 +23,13 @@
     <string name="remember_credentials">Remember me</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login" translatable="false">Login</string>
+    <string name="title_success">Success</string>
+    <string name="title_error">Error</string>
+    <string name="title_alert">Warning</string>
+    <string name="input_empty_error">Fields cannot be empty</string>
+    <string name="weak_password_exception">"Password must contain more than 6 characters "</string>
+    <string name="email_used_exception">This email is already in use. Try another email.</string>
+    <string name="invalid_credentials_exception">The email provided is not valid. Please check and try again.</string>
+    <string name="unknown_exception">An unexpected error has occurred. Please try again later.</string>
+    <string name="success_register">Account created successfully</string>
 </resources>

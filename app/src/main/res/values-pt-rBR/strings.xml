@@ -23,4 +23,13 @@
     <string name="sign_in_subtitle">Faça login com sua conta</string>
     <string name="remember_credentials">Lembrar-me</string>
     <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="title_success">Sucesso</string>
+    <string name="title_error">Erro</string>
+    <string name="title_alert">Alerta</string>
+    <string name="input_empty_error">Os campos não podem ficar vazios</string>
+    <string name="weak_password_exception">A senha deve conter mais de 6 caracteres</string>
+    <string name="email_used_exception">Este e-mail já está em uso. Tente outro e-mail.</string>
+    <string name="invalid_credentials_exception">O e-mail fornecido não é válido. Verifique e tente novamente.</string>
+    <string name="unknown_exception">Ocorreu um erro inesperado. Tente novamente mais tarde.</string>
+    <string name="success_register">"Conta criada com sucesso "</string>
 </resources>
