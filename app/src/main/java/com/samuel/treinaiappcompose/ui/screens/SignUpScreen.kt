@@ -26,27 +26,26 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.ui.components.AppDialog
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
 import com.samuel.treinaiappcompose.ui.components.AppTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
+import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
-//  viewModel: SignUpScreenViewModel = hiltViewModel()
+  viewModel: SignUpScreenViewModel = hiltViewModel(),
   navController: NavController
-
 ) {
-
   val focusManager = LocalFocusManager.current
-
-
   Scaffold(
     modifier = Modifier.pointerInput(Unit) {
       detectTapGestures {
@@ -98,9 +97,11 @@ fun SignUpScreen(
         ) {
           AppTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "",
+            value = viewModel.name.value,
             placeholder = stringResource(R.string.name_placeholder),
-            onValueChange = {},
+            onValueChange = { newValue ->
+              viewModel.name.value = newValue
+            },
             keyboardOptions = KeyboardOptions(
               keyboardType = KeyboardType.Text,
               imeAction = ImeAction.Next
@@ -115,9 +116,11 @@ fun SignUpScreen(
           Spacer(modifier = Modifier.height(16.dp))
           AppTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "",
+            value = viewModel.email.value,
             placeholder = stringResource(R.string.email_placeholder),
-            onValueChange = {},
+            onValueChange = { newValue ->
+              viewModel.email.value = newValue
+            },
             keyboardOptions = KeyboardOptions(
               keyboardType = KeyboardType.Email,
               imeAction = ImeAction.Next
@@ -133,19 +136,23 @@ fun SignUpScreen(
           AppPasswordTextField(
             modifier = Modifier.fillMaxWidth(),
             placeholder = stringResource(R.string.password_placeholder),
-            value = "",
-            onValueChange = {}
+            value = viewModel.password.value,
+            onValueChange = { newValue ->
+              viewModel.password.value = newValue
+            }
           )
           Spacer(modifier = Modifier.height(36.dp))
           DefaultAppButton(
-            onClick = {},
+            onClick = {
+              viewModel.signUpWithEmailAndPassword()
+            },
             text = stringResource(R.string.sign_up)
           )
         }
       }
     }
   )
-
+  AppDialog(state = viewModel.dialogState.value)
 }
 
 @Preview(showBackground = true)
@@ -153,10 +160,10 @@ fun SignUpScreen(
 private fun SignUpScreenPreview() {
   val navController = rememberNavController()
   AppTheme {
-//  val viewModel = SignUpScreenViewModel()
+    val viewModel = SignUpScreenViewModel()
     SignUpScreen(
+      viewModel = viewModel,
       navController
-//    viewModel = viewModel
     )
   }
 }
