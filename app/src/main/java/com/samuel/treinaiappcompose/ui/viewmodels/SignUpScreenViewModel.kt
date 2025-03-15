@@ -35,13 +35,28 @@ class SignUpScreenViewModel @Inject constructor(
   private val _dialogState = mutableStateOf(DialogState(open = false))
   val dialogState: State<DialogState> = _dialogState
 
+  /**
+   * Registers a new user with Firebase Authentication and stores their name in Firestore.
+   *
+   * This function:
+   * - Validates that the name, email, and password fields are not empty.
+   * - Creates a new user in Firebase Authentication.
+   * - Stores the user's name in Firestore under the "users" collection, using their UID.
+   * - Handles authentication errors, such as weak passwords, email collisions, and invalid formats.
+   * - Displays appropriate success or error dialogs based on the registration outcome.
+   *
+   * @throws FirebaseAuthWeakPasswordException If the password is too weak.
+   * @throws FirebaseAuthUserCollisionException If an account with the given email already exists.
+   * @throws FirebaseAuthInvalidCredentialsException If the email format is invalid.
+   * @throws Exception For any other unexpected errors.
+   */
+
   fun signUpWithEmailAndPassword() {
     viewModelScope.launch {
       try {
         if (_name.value.isEmpty() || _email.value.isEmpty() || _password.value.isEmpty()) {
           _dialogState.value = DialogState(
             open = true,
-            titleResId = R.string.title_alert,
             type = DialogType.ALERT,
             msgResId = R.string.input_empty_error,
             onConfirm = {
@@ -107,6 +122,19 @@ class SignUpScreenViewModel @Inject constructor(
     }
   }
 
+  /**
+   * Stores the user's name in Firestore.
+   *
+   * Saves the provided `name` in a Firestore document within the "users" collection, using the given `uid` as the document ID.
+   *
+   * @param uid The unique identifier of the user, used as the document ID in Firestore.
+   * @param name The name of the user to be stored.
+   *
+   * @throws Exception If an error occurs while writing to Firestore.
+   *
+   * @see FirebaseFirestore
+   */
+
   private suspend fun saveUserData(uid: String, name: String) {
     val userMap = hashMapOf(
       "name" to name,
@@ -117,6 +145,7 @@ class SignUpScreenViewModel @Inject constructor(
       e.printStackTrace()
     }
   }
+
   private fun onClickButtonDismissDialog() {
     _dialogState.value = DialogState(
       open = false
