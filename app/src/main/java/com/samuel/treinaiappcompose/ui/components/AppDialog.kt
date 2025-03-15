@@ -72,38 +72,38 @@ fun AppDialog(
           }
 
           Spacer(modifier = Modifier.height(8.dp))
-          state.title?.let {
-            when (state.type) {
-              DialogType.SUCCESS -> Text(
-                text = stringResource(R.string.title_success),
-                style = Typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-              )
 
-              DialogType.ERROR -> Text(
-                text = stringResource(R.string.title_error),
-                style = Typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-              )
+          when (state.type) {
+            DialogType.SUCCESS -> Text(
+              text = stringResource(R.string.title_success),
+              style = Typography.titleMedium,
+              color = MaterialTheme.colorScheme.primary
+            )
 
-              DialogType.ALERT -> Text(
-                text = stringResource(R.string.title_alert),
-                style = Typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-              )
+            DialogType.ERROR -> Text(
+              text = stringResource(R.string.title_error),
+              style = Typography.titleMedium,
+              color = MaterialTheme.colorScheme.primary
+            )
 
-              else -> {}
-            }
-            Spacer(modifier = Modifier.height(8.dp))
+            DialogType.ALERT -> Text(
+              text = stringResource(R.string.title_alert),
+              style = Typography.titleMedium,
+              color = MaterialTheme.colorScheme.primary
+            )
+
+            else -> {}
           }
-          if(state.msg != null) {
+          Spacer(modifier = Modifier.height(8.dp))
+
+          if (state.msg != null) {
             Text(
               text = state.msg,
               style = Typography.titleSmall,
               color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(16.dp))
-          } else if(state.msgResId != null) {
+          } else if (state.msgResId != null) {
             Text(
               text = stringResource(state.msgResId),
               style = Typography.titleSmall,
@@ -173,7 +173,6 @@ private fun AppDialogPreview() {
       state = DialogState(
         open = true,
         type = DialogType.ERROR,
-        title = "Success",
         msgResId = R.string.title_error
       )
     )
