@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
@@ -31,10 +32,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.AppDialog
+import com.samuel.treinaiappcompose.ui.components.AppLoader
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
 import com.samuel.treinaiappcompose.ui.components.AppTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
+import com.samuel.treinaiappcompose.ui.state.AppState
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
@@ -46,6 +49,14 @@ fun SignUpScreen(
   navController: NavController
 ) {
   val focusManager = LocalFocusManager.current
+
+  LaunchedEffect(viewModel.state.value.isSuccess) {
+  if(viewModel.state.value.isSuccess) {
+    navController.navigate(Screens.SIGNIN_SCREEN.name)
+    viewModel.resetSuccessState()
+    }
+  }
+
   Scaffold(
     modifier = Modifier.pointerInput(Unit) {
       detectTapGestures {
@@ -152,6 +163,9 @@ fun SignUpScreen(
       }
     }
   )
+  if(viewModel.state.value.isLoading) {
+    AppLoader()
+  }
   AppDialog(state = viewModel.dialogState.value)
 }
 

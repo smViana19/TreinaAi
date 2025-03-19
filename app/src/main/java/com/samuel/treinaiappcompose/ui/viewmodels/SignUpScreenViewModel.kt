@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.ui.state.AppState
 import com.samuel.treinaiappcompose.ui.state.DialogState
 import com.samuel.treinaiappcompose.ui.state.DialogType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +36,9 @@ class SignUpScreenViewModel @Inject constructor(
   private val _dialogState = mutableStateOf(DialogState(open = false))
   val dialogState: State<DialogState> = _dialogState
 
+  private val _state = mutableStateOf(AppState())
+  val state: State<AppState> = _state
+
   /**
    * Registers a new user with Firebase Authentication and stores their name in Firestore.
    *
@@ -53,6 +57,7 @@ class SignUpScreenViewModel @Inject constructor(
 
   fun signUpWithEmailAndPassword() {
     viewModelScope.launch {
+      _state.value = _state.value.copy(isLoading = true)
       try {
         if (_name.value.isEmpty() || _email.value.isEmpty() || _password.value.isEmpty()) {
           _dialogState.value = DialogState(
@@ -63,6 +68,7 @@ class SignUpScreenViewModel @Inject constructor(
               onClickButtonDismissDialog()
             }
           )
+          _state.value = _state.value.copy(isLoading = false)
           return@launch
         }
         val result =
@@ -71,6 +77,7 @@ class SignUpScreenViewModel @Inject constructor(
         if (user != null) {
           saveUserData(user.uid, _name.value)
         }
+
         _dialogState.value = DialogState(
           open = true,
           type = DialogType.SUCCESS,
@@ -82,6 +89,7 @@ class SignUpScreenViewModel @Inject constructor(
         _name.value = ""
         _email.value = ""
         _password.value = ""
+        _state.value = _state.value.copy(isSuccess = true)
       } catch (e: FirebaseAuthWeakPasswordException) {
         _dialogState.value = DialogState(
           open = true,
@@ -118,6 +126,8 @@ class SignUpScreenViewModel @Inject constructor(
             onClickButtonDismissDialog()
           }
         )
+      } finally {
+        _state.value = _state.value.copy(isLoading = false)
       }
     }
   }
@@ -135,6 +145,10 @@ class SignUpScreenViewModel @Inject constructor(
    * @see FirebaseFirestore
    */
 
+  fun resetSuccessState() {
+    _state.value = _state.value.copy(isSuccess = false)
+  }
+
   private suspend fun saveUserData(uid: String, name: String) {
     val userMap = hashMapOf(
       "name" to name,
@@ -151,6 +165,8 @@ class SignUpScreenViewModel @Inject constructor(
       open = false
     )
   }
+
+
 }
 
 

@@ -32,4 +32,5 @@
     <string name="invalid_credentials_exception">The email provided is not valid. Please check and try again.</string>
     <string name="unknown_exception">An unexpected error has occurred. Please try again later.</string>
     <string name="success_register">Account created successfully</string>
+    <string name="loading">Loading…</string>
 </resources>
