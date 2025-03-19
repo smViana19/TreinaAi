@@ -31,6 +31,10 @@
     <string name="email_used_exception">Este e-mail já está em uso. Tente outro e-mail.</string>
     <string name="invalid_credentials_exception">O e-mail fornecido não é válido. Verifique e tente novamente.</string>
     <string name="unknown_exception">Ocorreu um erro inesperado. Tente novamente mais tarde.</string>
-    <string name="success_register">"Conta criada com sucesso "</string>
+    <string name="success_register">Conta criada com sucesso</string>
     <string name="loading">Carregando…</string>
+    <string name="success_login">Logado com sucesso.</string>
+    <string name="invalid_credentials_login_exception">Credenciais inválidas.</string>
+    <string name="many_requests_exception">Muitas tentativas. Tente novamente mais tarde.</string>
+    <string name="invalid_user_exception">Usuário não encontrado. Cadastre-se ou verifique o e-mail.</string>
 </resources>

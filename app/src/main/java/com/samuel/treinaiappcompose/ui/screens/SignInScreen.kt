@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -34,22 +35,30 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.AppCheckbox
+import com.samuel.treinaiappcompose.ui.components.AppDialog
+import com.samuel.treinaiappcompose.ui.components.AppLoader
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
 import com.samuel.treinaiappcompose.ui.components.AppTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
+import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-//  viewModel: SignInScreenViewModel
+  viewModel: SignInScreenViewModel,
   navController: NavController
 ) {
 
   val focusManager = LocalFocusManager.current
-
+  LaunchedEffect(viewModel.state.value.isSuccess) {
+    if(viewModel.state.value.isSuccess) {
+      navController.navigate(Screens.HOME_SCREEN.name)
+      viewModel.resetSuccessState()
+    }
+  }
   Scaffold(
     modifier = Modifier.pointerInput(Unit) {
       detectTapGestures {
@@ -101,9 +110,11 @@ fun SignInScreen(
         ) {
           AppTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "",
+            value = viewModel.email.value,
             placeholder = stringResource(R.string.email_placeholder),
-            onValueChange = {},
+            onValueChange = { newValue ->
+              viewModel.email.value = newValue
+            },
             keyboardOptions = KeyboardOptions(
               keyboardType = KeyboardType.Email,
               imeAction = ImeAction.Next
@@ -119,8 +130,10 @@ fun SignInScreen(
           AppPasswordTextField(
             modifier = Modifier.fillMaxWidth(),
             placeholder = stringResource(R.string.password_placeholder),
-            value = "",
-            onValueChange = {}
+            value = viewModel.password.value,
+            onValueChange = { newValue ->
+              viewModel.password.value = newValue
+            }
           )
           Spacer(modifier = Modifier.height(16.dp))
 
@@ -131,7 +144,8 @@ fun SignInScreen(
           ) {
             Row(
               modifier = Modifier.padding(0.dp),
-              verticalAlignment = Alignment.CenterVertically) {
+              verticalAlignment = Alignment.CenterVertically
+            ) {
 
               AppCheckbox(modifier = Modifier.padding(end = 8.dp))
               Text(
@@ -142,7 +156,7 @@ fun SignInScreen(
             }
 
             Text(
-              modifier = Modifier.clickable {  },
+              modifier = Modifier.clickable { },
               text = stringResource(R.string.forgot_password),
               color = MaterialTheme.colorScheme.secondary,
               style = Typography.titleMedium
@@ -151,21 +165,27 @@ fun SignInScreen(
 
           Spacer(modifier = Modifier.height(36.dp))
           DefaultAppButton(
-            onClick = {},
+            onClick = {
+              viewModel.signInWithEmailAndPassword()
+            },
             text = stringResource(R.string.login)
           )
         }
       }
     }
   )
+  if (viewModel.state.value.isLoading) {
+    AppLoader()
+  }
+  AppDialog(state = viewModel.dialogState.value)
 }
 
 @Preview
 @Composable
 private fun SignInScreenPreview() {
   val navController = rememberNavController()
+  val viewModel = SignInScreenViewModel()
   AppTheme {
-    //  val vm = SignInScreenViewModel()
-    SignInScreen(navController)
+    SignInScreen(viewModel, navController)
   }
 }
