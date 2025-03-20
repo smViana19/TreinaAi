@@ -13,7 +13,7 @@ import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
 
 @Composable
-fun MainNavigation() {
+fun MainNavigation(startNavigation: String) {
   val navController = rememberNavController()
   val signUpScreenViewModel: SignUpScreenViewModel = hiltViewModel()
   val signInScreenViewModel: SignInScreenViewModel = hiltViewModel()
@@ -21,7 +21,7 @@ fun MainNavigation() {
 
   NavHost(
     navController = navController,
-    startDestination = Screens.ONBOARDING_SCREEN.name
+    startDestination = startNavigation
   ) {
     composable(route = Screens.ONBOARDING_SCREEN.name) {
       OnboardingScreen(navController)

@@ -52,6 +52,7 @@ dependencies {
 
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.core.ktx)
+  implementation (libs.androidx.core.splashscreen)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.material3)
   implementation(libs.androidx.room.compiler)
@@ -66,6 +67,7 @@ dependencies {
   implementation(libs.hilt.compose.navigation)
   implementation(libs.lottie.compose)
   implementation(libs.play.services.base)
+
 
   ksp(libs.androidx.room.compiler)
   ksp(libs.hilt.android.compiler)
