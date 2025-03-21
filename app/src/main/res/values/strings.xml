@@ -37,4 +37,5 @@
     <string name="invalid_credentials_login_exception">Invalid credentials</string>
     <string name="many_requests_exception">Too many attempts. Please try again later</string>
     <string name="invalid_user_exception">User not found. Please register or check email.</string>
+    <string name="notification_icon_description">Notification icon</string>
 </resources>
