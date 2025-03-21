@@ -1,7 +1,5 @@
 package com.samuel.treinaiappcompose.ui.theme
 
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 val PrimaryColorLight = Color(0xFF111827)
@@ -15,6 +13,7 @@ val SoftWhite = Color(0xFFFAFAFA)
 val DarkTextColor = Color(0xFF1F2937)
 val BorderColor = Color(0xFF9CA3AF)
 val PlaceholderColor = Color(0xFF9CA3AF)
+val OnSecondary = Color(0xFFFAFAFA)
 
 
 val BorderInputColor = BorderColor

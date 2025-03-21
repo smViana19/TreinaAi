@@ -8,7 +8,6 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 val DarkColorScheme = darkColorScheme(
@@ -18,7 +17,7 @@ val DarkColorScheme = darkColorScheme(
   background = DarkBackground,
   surface = DarkBackground,
   onPrimary = ButtonContentColorDark,
-  onSecondary = ButtonContentColorDark,
+  onSecondary = OnSecondary,
   onBackground = TitleTextColorDark,
   onSurface = TitleTextColorDark,
   outline = BorderInputColor
@@ -31,7 +30,7 @@ val LightColorScheme = lightColorScheme(
   background = LightBackground,
   surface = LightBackground,
   onPrimary = ButtonContentColorLight,
-  onSecondary = ButtonContentColorLight,
+  onSecondary = OnSecondary,
   onBackground = TitleTextColorLight,
   onSurface = TitleTextColorLight,
   outline = BorderInputColor,
