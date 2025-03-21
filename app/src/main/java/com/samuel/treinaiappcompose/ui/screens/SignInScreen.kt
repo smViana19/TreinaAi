@@ -55,7 +55,7 @@ fun SignInScreen(
   val focusManager = LocalFocusManager.current
   LaunchedEffect(viewModel.state.value.isSuccess) {
     if(viewModel.state.value.isSuccess) {
-      navController.navigate(Screens.HOME_SCREEN.name)
+      navController.navigate(Screens.ROUTINE_SCREEN.name)
       viewModel.resetSuccessState()
     }
   }

@@ -7,23 +7,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.samuel.treinaiappcompose.ui.navigation.MainNavigation
 import com.samuel.treinaiappcompose.ui.navigation.Screens
-import com.samuel.treinaiappcompose.ui.screens.OnboardingScreen
-import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
+    
     val user = Firebase.auth.currentUser
 
     val splashScreen = installSplashScreen()
@@ -39,7 +35,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       AppTheme {
         val startNavigation = if (user != null) {
-          Screens.HOME_SCREEN.name
+          Screens.ROUTINE_SCREEN.name
         } else {
           Screens.ONBOARDING_SCREEN.name
         }

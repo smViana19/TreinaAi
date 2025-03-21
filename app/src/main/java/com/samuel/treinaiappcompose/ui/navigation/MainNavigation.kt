@@ -33,7 +33,7 @@ fun MainNavigation(startNavigation: String) {
       SignInScreen(signInScreenViewModel, navController)
     }
 
-    composable(route = Screens.HOME_SCREEN.name) {
+    composable(route = Screens.ROUTINE_SCREEN.name) {
       HomeScreen()
     }
   }
