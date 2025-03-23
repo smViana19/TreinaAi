@@ -38,4 +38,7 @@
     <string name="many_requests_exception">Too many attempts. Please try again later</string>
     <string name="invalid_user_exception">User not found. Please register or check email.</string>
     <string name="notification_icon_description">Notification icon</string>
+    <string name="home_label" translatable="false">Home</string>
+    <string name="progress_label">Progress</string>
+    <string name="profile_label">Profile</string>
 </resources>
