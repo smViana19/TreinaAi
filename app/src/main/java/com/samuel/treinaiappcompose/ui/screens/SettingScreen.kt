@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun SettingScreen(modifier: Modifier = Modifier) {
   Column {
-    Text("Ola mundo, profile screen")  }
+    Text("Ola mundo, Settings screen")
+
+  }
 }

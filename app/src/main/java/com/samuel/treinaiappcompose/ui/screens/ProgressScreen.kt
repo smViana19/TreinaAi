@@ -1,12 +1,10 @@
 package com.samuel.treinaiappcompose.ui.screens
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
-  Column {
-    Text("Ola mundo, profile screen")  }
+fun ProgressScreen(modifier: Modifier = Modifier) {
+  Text("Ola mundo, progress screen")
 }
