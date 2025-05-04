@@ -165,6 +165,11 @@ fun AlertDialog(modifier: Modifier = Modifier) {
 
 }
 
+@Composable
+fun FormDialog(modifier: Modifier = Modifier) {
+  
+}
+
 @Preview
 @Composable
 private fun AppDialogPreview() {

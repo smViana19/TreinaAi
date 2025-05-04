@@ -21,9 +21,11 @@ import com.samuel.treinaiappcompose.ui.screens.ProgressScreen
 import com.samuel.treinaiappcompose.ui.screens.SettingScreen
 import com.samuel.treinaiappcompose.ui.screens.SignInScreen
 import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
+import com.samuel.treinaiappcompose.ui.screens.WorkoutScreen
 import com.samuel.treinaiappcompose.ui.viewmodels.RoutineScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
+import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutScreenViewmodel
 
 @Composable
 fun MainNavigation(startNavigation: String) {
@@ -31,16 +33,29 @@ fun MainNavigation(startNavigation: String) {
   val signUpScreenViewModel: SignUpScreenViewModel = hiltViewModel()
   val signInScreenViewModel: SignInScreenViewModel = hiltViewModel()
   val routineScreenViewmodel: RoutineScreenViewModel = hiltViewModel()
+  val workoutScreenViewmodel: WorkoutScreenViewmodel = hiltViewModel()
 
   val bottomNavItems = listOf(
-    BottomNavItems(route = Screens.ROUTINE_SCREEN.name, icon = painterResource(R.drawable.ic_home_24), label = stringResource(R.string.home_label)),
-    BottomNavItems(route = Screens.PROGRESS_SCREEN.name, icon = painterResource(R.drawable.ic_routine_outlined_24), label = stringResource(R.string.progress_label)),
-    BottomNavItems(route = Screens.PROFILE_SCREEN.name, icon = painterResource(R.drawable.ic_profile_placeholder), label = stringResource(R.string.profile_label)),
+    BottomNavItems(
+      route = Screens.ROUTINE_SCREEN.name,
+      icon = painterResource(R.drawable.ic_home_24),
+      label = stringResource(R.string.home_label)
+    ),
+    BottomNavItems(
+      route = Screens.PROGRESS_SCREEN.name,
+      icon = painterResource(R.drawable.ic_routine_outlined_24),
+      label = stringResource(R.string.progress_label)
+    ),
+    BottomNavItems(
+      route = Screens.PROFILE_SCREEN.name,
+      icon = painterResource(R.drawable.ic_profile_placeholder),
+      label = stringResource(R.string.profile_label)
+    ),
   )
 
   Scaffold(
     bottomBar = {
-      if(navController.currentBackStackEntryAsState().value?.destination?.route == Screens.ROUTINE_SCREEN.name) {
+      if (navController.currentBackStackEntryAsState().value?.destination?.route == Screens.ROUTINE_SCREEN.name) {
         AppBottomBar(navController, bottomNavItems)
       }
     },
@@ -76,6 +91,9 @@ fun MainNavigation(startNavigation: String) {
 
         composable(route = Screens.SETTING_SCREEN.name) {
           SettingScreen()
+        }
+        composable(route = Screens.WORKOUT_SCREEN.name) {
+          WorkoutScreen(workoutScreenViewmodel, navController)
         }
       }
     }

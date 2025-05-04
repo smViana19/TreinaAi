@@ -40,4 +40,6 @@
     <string name="notification_icon_description">Icone notificação</string>
     <string name="progress_label">Progresso</string>
     <string name="profile_label">Perfil</string>
+    <string name="workout_title">Crie seu treino</string>
+    <string name="workout_subtitle">"Crie seu treinamento rapidamente "</string>
 </resources>

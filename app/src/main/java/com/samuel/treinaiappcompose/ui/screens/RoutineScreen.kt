@@ -42,7 +42,10 @@ import com.samuel.treinaiappcompose.ui.theme.Typography
 import com.samuel.treinaiappcompose.ui.viewmodels.RoutineScreenViewModel
 
 @Composable
-fun RoutineScreen(navController: NavController, viewmodel: RoutineScreenViewModel = hiltViewModel()) {
+fun RoutineScreen(
+  navController: NavController,
+  viewmodel: RoutineScreenViewModel = hiltViewModel()
+) {
 
   LaunchedEffect(Unit) {
     viewmodel.getUsername()
@@ -58,10 +61,8 @@ fun RoutineScreen(navController: NavController, viewmodel: RoutineScreenViewMode
   ) {
     Header(navController = navController, userName = userName)
     MyWorkouts(navController = navController)
-
   }
 }
-
 
 @Composable
 fun Header(
@@ -99,7 +100,7 @@ fun Header(
               .background(MaterialTheme.colorScheme.secondary)
           ) {
             Text(
-              text = if(userName.isNotEmpty()) userName.first().toString() else "?" ,
+              text = if (userName.isNotEmpty()) userName.first().toString() else "?",
               style = MaterialTheme.typography.titleMedium,
               color = MaterialTheme.colorScheme.onSecondary,
               modifier = Modifier.align(Alignment.Center)
@@ -163,7 +164,9 @@ fun MyWorkouts(navController: NavController) {
       .fillMaxWidth()
   ) {
     DefaultAppButton(
-      onClick = {},
+      onClick = {
+        navController.navigate(Screens.WORKOUT_SCREEN.name)
+      },
       text = "Treino rápido",
       leadingIcon = {
         Icon(painter = painterResource(R.drawable.ic_add_24), contentDescription = "")

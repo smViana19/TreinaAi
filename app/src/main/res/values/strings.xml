@@ -41,4 +41,6 @@
     <string name="home_label" translatable="false">Home</string>
     <string name="progress_label">Progress</string>
     <string name="profile_label">Profile</string>
+    <string name="workout_title">Create your workout</string>
+    <string name="workout_subtitle">Create your custom workouts quickly</string>
 </resources>
