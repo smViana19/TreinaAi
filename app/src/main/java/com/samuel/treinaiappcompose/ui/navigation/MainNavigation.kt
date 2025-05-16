@@ -25,7 +25,7 @@ import com.samuel.treinaiappcompose.ui.screens.WorkoutScreen
 import com.samuel.treinaiappcompose.ui.viewmodels.RoutineScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
-import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutScreenViewmodel
+import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutListScreenViewmodel
 
 @Composable
 fun MainNavigation(startNavigation: String) {
@@ -33,7 +33,7 @@ fun MainNavigation(startNavigation: String) {
   val signUpScreenViewModel: SignUpScreenViewModel = hiltViewModel()
   val signInScreenViewModel: SignInScreenViewModel = hiltViewModel()
   val routineScreenViewmodel: RoutineScreenViewModel = hiltViewModel()
-  val workoutScreenViewmodel: WorkoutScreenViewmodel = hiltViewModel()
+  val workoutListScreenViewmodel: WorkoutListScreenViewmodel = hiltViewModel()
 
   val bottomNavItems = listOf(
     BottomNavItems(
@@ -93,7 +93,7 @@ fun MainNavigation(startNavigation: String) {
           SettingScreen()
         }
         composable(route = Screens.WORKOUT_SCREEN.name) {
-          WorkoutScreen(workoutScreenViewmodel, navController)
+          WorkoutScreen(workoutListScreenViewmodel, navController)
         }
       }
     }

@@ -2,6 +2,7 @@ package com.samuel.treinaiappcompose.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,8 @@ import com.samuel.treinaiappcompose.ui.theme.Typography
 @Composable
 fun AppDialog(
   modifier: Modifier = Modifier,
-  state: DialogState
+  state: DialogState,
+  content: (@Composable ColumnScope.() -> Unit)? = null
 ) {
   if (state.open) {
     Dialog(
@@ -52,64 +54,68 @@ fun AppDialog(
           modifier = Modifier.padding(16.dp),
           horizontalAlignment = Alignment.CenterHorizontally
         ) {
-          when (state.type) {
-            DialogType.SUCCESS -> LottieAnimation(
-              modifier = modifier.size(72.dp),
-              composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.success_animation)).value,
-            )
+          if (content == null) {
+            when (state.type) {
+              DialogType.SUCCESS -> LottieAnimation(
+                modifier = modifier.size(72.dp),
+                composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.success_animation)).value,
+              )
 
-            DialogType.ERROR -> LottieAnimation(
-              modifier = modifier.size(72.dp),
-              composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.error_animation)).value,
-            )
+              DialogType.ERROR -> LottieAnimation(
+                modifier = modifier.size(72.dp),
+                composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.error_animation)).value,
+              )
 
-            DialogType.ALERT -> LottieAnimation(
-              modifier = modifier.size(72.dp),
-              composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.alert_animation)).value,
-            )
+              DialogType.ALERT -> LottieAnimation(
+                modifier = modifier.size(72.dp),
+                composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.alert_animation)).value,
+              )
 
-            else -> {}
-          }
+              else -> {}
+            }
 
-          Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-          when (state.type) {
-            DialogType.SUCCESS -> Text(
-              text = stringResource(R.string.title_success),
-              style = Typography.titleMedium,
-              color = MaterialTheme.colorScheme.primary
-            )
+            when (state.type) {
+              DialogType.SUCCESS -> Text(
+                text = stringResource(R.string.title_success),
+                style = Typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+              )
 
-            DialogType.ERROR -> Text(
-              text = stringResource(R.string.title_error),
-              style = Typography.titleMedium,
-              color = MaterialTheme.colorScheme.primary
-            )
+              DialogType.ERROR -> Text(
+                text = stringResource(R.string.title_error),
+                style = Typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+              )
 
-            DialogType.ALERT -> Text(
-              text = stringResource(R.string.title_alert),
-              style = Typography.titleMedium,
-              color = MaterialTheme.colorScheme.primary
-            )
+              DialogType.ALERT -> Text(
+                text = stringResource(R.string.title_alert),
+                style = Typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+              )
 
-            else -> {}
-          }
-          Spacer(modifier = Modifier.height(8.dp))
+              else -> {}
+            }
+            Spacer(modifier = Modifier.height(8.dp))
 
-          if (state.msg != null) {
-            Text(
-              text = state.msg,
-              style = Typography.titleSmall,
-              color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-          } else if (state.msgResId != null) {
-            Text(
-              text = stringResource(state.msgResId),
-              style = Typography.titleSmall,
-              color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            if (state.msg != null) {
+              Text(
+                text = state.msg,
+                style = Typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary
+              )
+              Spacer(modifier = Modifier.height(16.dp))
+            } else if (state.msgResId != null) {
+              Text(
+                text = stringResource(state.msgResId),
+                style = Typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary
+              )
+              Spacer(modifier = Modifier.height(16.dp))
+            }
+          } else {
+            content()
           }
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -166,9 +172,43 @@ fun AlertDialog(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FormDialog(modifier: Modifier = Modifier) {
-  
+fun FormDialog(
+  modifier: Modifier = Modifier,
+  title: String,
+  state: DialogState,
+  formContent: @Composable ColumnScope.() -> Unit
+) {
+  AppDialog(
+    modifier = modifier,
+    state = state,
+    content = {
+      Text(
+        text = title,
+        style = Typography.titleMedium,
+        color = MaterialTheme.colorScheme.primary
+      )
+      Spacer(modifier = Modifier.height(16.dp))
+      formContent()
+      Spacer(modifier = Modifier.height(16.dp))
+    }
+  )
 }
+
+@Preview
+@Composable
+private fun FormDialogPreview() {
+  AppTheme {
+    FormDialog(
+      title = "Formulario",
+      state = DialogState(open = true),
+      formContent = {
+        AppTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
+        Spacer(modifier = Modifier.height(8.dp))
+        AppTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
+      })
+  }
+}
+
 
 @Preview
 @Composable
@@ -183,3 +223,4 @@ private fun AppDialogPreview() {
     )
   }
 }
+
