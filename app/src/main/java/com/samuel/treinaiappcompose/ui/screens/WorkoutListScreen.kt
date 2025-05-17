@@ -1,5 +1,6 @@
 package com.samuel.treinaiappcompose.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +21,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,16 +40,20 @@ import com.samuel.treinaiappcompose.ui.state.DialogState
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
 import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutListScreenViewmodel
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutScreen(
+fun WorkoutListScreen(
   viewModel: WorkoutListScreenViewmodel = hiltViewModel(),
   navController: NavController
 ) {
-
+  val context = LocalContext.current
   LaunchedEffect(Unit) {
     viewModel.getAllWorkouts()
+    viewModel.toastMessage.collectLatest { messageId ->
+      Toast.makeText(context, context.getString(messageId), Toast.LENGTH_SHORT).show()
+    }
   }
 
   Scaffold(
@@ -160,6 +166,6 @@ private fun WorkoutScreenPreview() {
   val repository = WorkoutRepository(workoutDao)
   val viewModel = WorkoutListScreenViewmodel(repository)
   AppTheme {
-    WorkoutScreen(viewModel, navController)
+    WorkoutListScreen(viewModel, navController)
   }
 }

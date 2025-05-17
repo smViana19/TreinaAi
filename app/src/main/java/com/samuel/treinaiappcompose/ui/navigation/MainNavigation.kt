@@ -7,10 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.AppBottomBar
 import com.samuel.treinaiappcompose.ui.components.BottomNavItems
@@ -21,11 +23,13 @@ import com.samuel.treinaiappcompose.ui.screens.ProgressScreen
 import com.samuel.treinaiappcompose.ui.screens.SettingScreen
 import com.samuel.treinaiappcompose.ui.screens.SignInScreen
 import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
+import com.samuel.treinaiappcompose.ui.screens.WorkoutListScreen
 import com.samuel.treinaiappcompose.ui.screens.WorkoutScreen
 import com.samuel.treinaiappcompose.ui.viewmodels.RoutineScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutListScreenViewmodel
+import com.samuel.treinaiappcompose.ui.viewmodels.WorkoutViewModel
 
 @Composable
 fun MainNavigation(startNavigation: String) {
@@ -33,6 +37,7 @@ fun MainNavigation(startNavigation: String) {
   val signUpScreenViewModel: SignUpScreenViewModel = hiltViewModel()
   val signInScreenViewModel: SignInScreenViewModel = hiltViewModel()
   val routineScreenViewmodel: RoutineScreenViewModel = hiltViewModel()
+  val workoutScreenViewModel: WorkoutViewModel = hiltViewModel()
   val workoutListScreenViewmodel: WorkoutListScreenViewmodel = hiltViewModel()
 
   val bottomNavItems = listOf(
@@ -92,10 +97,24 @@ fun MainNavigation(startNavigation: String) {
         composable(route = Screens.SETTING_SCREEN.name) {
           SettingScreen()
         }
-        composable(route = Screens.WORKOUT_SCREEN.name) {
-          WorkoutScreen(workoutListScreenViewmodel, navController)
+        composable(route = Screens.WORKOUT_LIST_SCREEN.name) {
+          WorkoutListScreen(workoutListScreenViewmodel, navController)
         }
-      }
+
+        composable(
+          route = Screens.WORKOUT_SCREEN.name,
+          arguments = listOf(
+            navArgument("workoutId") {
+              type = NavType.IntType
+            }
+          )
+        ) {navBackStackEntry ->
+          val workoutId = navBackStackEntry.arguments?.getInt("workoutId") ?: -1
+          WorkoutScreen(workoutId, navController,workoutScreenViewModel )
+        }
+
+
+        }
     }
   )
 

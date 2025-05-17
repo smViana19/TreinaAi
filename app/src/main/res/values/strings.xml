@@ -44,4 +44,5 @@
     <string name="workout_title">Create your workout</string>
     <string name="workout_subtitle">Create your custom workouts quickly</string>
     <string name="workout_dialog_title">Create Workout</string>
+    <string name="workout_alert_empty_field">Enter the name of the workout</string>
 </resources>

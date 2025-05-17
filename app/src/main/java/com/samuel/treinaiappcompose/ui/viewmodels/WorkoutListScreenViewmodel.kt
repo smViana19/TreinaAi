@@ -5,10 +5,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.data.local.database.model.WorkoutModel
 import com.samuel.treinaiappcompose.data.repository.WorkoutRepository
 import com.samuel.treinaiappcompose.ui.state.DialogState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +31,9 @@ class WorkoutListScreenViewmodel @Inject constructor(
 
   private val _dialogState = mutableStateOf(DialogState(open = false))
   val dialogState: State<DialogState> = _dialogState
+  private val _toastMessage = MutableSharedFlow<Int>()
+  val toastMessage = _toastMessage.asSharedFlow()
+
 
   fun getAllWorkouts() {
     viewModelScope.launch {
@@ -37,6 +43,15 @@ class WorkoutListScreenViewmodel @Inject constructor(
 
   fun insertWorkout() {
     viewModelScope.launch {
+
+      if(_name.value.isEmpty()) {
+        _dialogState.value = DialogState(open = false)
+        _name.value = ""
+        _description.value = ""
+        _toastMessage.emit(R.string.workout_alert_empty_field)
+        return@launch
+      }
+
       workoutRepository.insertWorkout(_name.value, _description.value)
       getAllWorkouts()
       _name.value = ""

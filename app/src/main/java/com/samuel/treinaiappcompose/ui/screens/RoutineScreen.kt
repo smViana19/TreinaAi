@@ -165,7 +165,7 @@ fun MyWorkouts(navController: NavController) {
   ) {
     DefaultAppButton(
       onClick = {
-        navController.navigate(Screens.WORKOUT_SCREEN.name)
+        navController.navigate(Screens.WORKOUT_LIST_SCREEN.name)
       },
       text = "Treino rápido",
       leadingIcon = {

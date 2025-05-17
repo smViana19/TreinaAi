@@ -43,4 +43,5 @@
     <string name="workout_title">Crie seu treino</string>
     <string name="workout_subtitle">"Crie seu treinamento rapidamente "</string>
     <string name="workout_dialog_title">Criar Treinamento</string>
+    <string name="workout_alert_empty_field">Informe o nome do treinamento</string>
 </resources>
