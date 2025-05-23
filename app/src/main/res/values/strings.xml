@@ -45,4 +45,14 @@
     <string name="workout_subtitle">Create your custom workouts quickly</string>
     <string name="workout_dialog_title">Create Workout</string>
     <string name="workout_alert_empty_field">Enter the name of the workout</string>
+    <string name="calories_icon">Calories icon</string>
+    <string name="workout_start">Start workout</string>
+    <string name="workout_duration_label">Duration</string>
+    <string name="workout_total_weight_label">Loads</string>
+    <string name="workout_calories_label">Calories</string>
+    <string name="dumbbel_icon">Dumbbel icon</string>
+    <string name="duration_icon">Duration icon</string>
+    <string name="workout_exercise_list_tittle">Exercise list</string>
+    <string name="workout_exercise_label">Exercises</string>
+    <string name="workout_exercise_alert_empty_list">Your exercise list is empty!</string>
 </resources>

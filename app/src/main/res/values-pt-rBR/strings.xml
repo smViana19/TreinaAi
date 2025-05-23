@@ -44,4 +44,14 @@
     <string name="workout_subtitle">"Crie seu treinamento rapidamente "</string>
     <string name="workout_dialog_title">Criar Treinamento</string>
     <string name="workout_alert_empty_field">Informe o nome do treinamento</string>
+    <string name="calories_icon">Icone calorias</string>
+    <string name="workout_start">Iniciar Treinamento</string>
+    <string name="workout_duration_label">Duração</string>
+    <string name="workout_total_weight_label">Carga</string>
+    <string name="dumbbel_icon">Icone halter</string>
+    <string name="duration_icon">Icone duração</string>
+    <string name="workout_calories_label">Calorias</string>
+    <string name="workout_exercise_list_tittle">Lista de exercícios</string>
+    <string name="workout_exercise_label">Exercícios</string>
+    <string name="workout_exercise_alert_empty_list">Sua lista de exercícios está vazia!</string>
 </resources>
