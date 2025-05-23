@@ -13,6 +13,13 @@ class WorkoutRepository @Inject constructor(
     val workouts = workoutDao.getAllWorkouts()
     return workouts
   }
+
+  suspend fun getWorkoutById(workoutId: Int) : WorkoutModel {
+    val workout = workoutDao.getWorkoutById(workoutId)
+    return workout
+  }
+
+
   suspend fun insertWorkout(name: String, description: String?) {
     val workout = WorkoutModel(name = name, description = description)
     workoutDao.insertWorkout(workout)

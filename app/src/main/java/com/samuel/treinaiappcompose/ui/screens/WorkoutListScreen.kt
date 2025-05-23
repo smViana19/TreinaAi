@@ -115,10 +115,11 @@ fun WorkoutListScreen(
             .weight(1f),
           contentPadding = PaddingValues(bottom = 80.dp)
         ) {
-          items(viewModel.workouts.value) { item ->
-            AppCard(title = item.name, onClick = {
-              //navigate
-            })
+          items(viewModel.workouts.value) { workout ->
+            AppCard(title = workout.name,
+              onClick = {
+                navController.navigate("${Screens.WORKOUT_SCREEN.name}?workoutId=${workout.id}")
+              })
           }
         }
       }

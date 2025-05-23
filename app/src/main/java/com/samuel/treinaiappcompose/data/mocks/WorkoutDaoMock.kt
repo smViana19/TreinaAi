@@ -8,6 +8,10 @@ class WorkoutDaoMock: WorkoutDao {
     TODO("Not yet implemented")
   }
 
+  override suspend fun getWorkoutById(workoutId: Int): WorkoutModel {
+    TODO("Not yet implemented")
+  }
+
   override suspend fun insertWorkout(workout: WorkoutModel) {
     TODO("Not yet implemented")
   }

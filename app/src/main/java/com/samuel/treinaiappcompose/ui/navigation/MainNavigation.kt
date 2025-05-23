@@ -102,19 +102,17 @@ fun MainNavigation(startNavigation: String) {
         }
 
         composable(
-          route = Screens.WORKOUT_SCREEN.name,
+          route = "${Screens.WORKOUT_SCREEN.name}?workoutId={workoutId}",
           arguments = listOf(
             navArgument("workoutId") {
               type = NavType.IntType
             }
           )
-        ) {navBackStackEntry ->
-          val workoutId = navBackStackEntry.arguments?.getInt("workoutId") ?: -1
-          WorkoutScreen(workoutId, navController,workoutScreenViewModel )
+        ) { navBackStackEntry ->
+          val workoutId = navBackStackEntry.arguments?.getInt("workoutId") ?: throw IllegalStateException("workoutId não encontrado nos argumentos de navegação")
+          WorkoutScreen(workoutId, navController, workoutScreenViewModel)
         }
-
-
-        }
+      }
     }
   )
 
