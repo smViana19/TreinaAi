@@ -56,7 +56,6 @@ class WorkoutListScreenViewmodel @Inject constructor(
       getAllWorkouts()
       _name.value = ""
       _description.value = ""
-
       _dialogState.value = DialogState(open = false)
     }
   }

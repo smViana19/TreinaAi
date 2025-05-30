@@ -66,6 +66,7 @@ fun WorkoutListScreen(
           }) {
             Icon(
               painter = painterResource(R.drawable.ic_back_24),
+              tint = MaterialTheme.colorScheme.primary,
               contentDescription = stringResource(R.string.back_icon)
             )
           }

@@ -16,15 +16,17 @@ import androidx.navigation.navArgument
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.ui.components.AppBottomBar
 import com.samuel.treinaiappcompose.ui.components.BottomNavItems
-import com.samuel.treinaiappcompose.ui.screens.RoutineScreen
+import com.samuel.treinaiappcompose.ui.screens.ExerciseListScreen
 import com.samuel.treinaiappcompose.ui.screens.OnboardingScreen
 import com.samuel.treinaiappcompose.ui.screens.ProfileScreen
 import com.samuel.treinaiappcompose.ui.screens.ProgressScreen
+import com.samuel.treinaiappcompose.ui.screens.RoutineScreen
 import com.samuel.treinaiappcompose.ui.screens.SettingScreen
 import com.samuel.treinaiappcompose.ui.screens.SignInScreen
 import com.samuel.treinaiappcompose.ui.screens.SignUpScreen
 import com.samuel.treinaiappcompose.ui.screens.WorkoutListScreen
 import com.samuel.treinaiappcompose.ui.screens.WorkoutScreen
+import com.samuel.treinaiappcompose.ui.viewmodels.ExerciseListScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.RoutineScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignInScreenViewModel
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
@@ -39,6 +41,7 @@ fun MainNavigation(startNavigation: String) {
   val routineScreenViewmodel: RoutineScreenViewModel = hiltViewModel()
   val workoutScreenViewModel: WorkoutViewModel = hiltViewModel()
   val workoutListScreenViewmodel: WorkoutListScreenViewmodel = hiltViewModel()
+  val exerciseListViewmodel: ExerciseListScreenViewModel = hiltViewModel()
 
   val bottomNavItems = listOf(
     BottomNavItems(
@@ -111,6 +114,18 @@ fun MainNavigation(startNavigation: String) {
         ) { navBackStackEntry ->
           val workoutId = navBackStackEntry.arguments?.getInt("workoutId") ?: throw IllegalStateException("workoutId não encontrado nos argumentos de navegação")
           WorkoutScreen(workoutId, navController, workoutScreenViewModel)
+        }
+
+        composable(
+          route = "${Screens.EXERCISE_SCREEN.name}?workoutId={workoutId}",
+          arguments = listOf(
+            navArgument("workoutId") {
+              type = NavType.IntType
+            }
+          )
+        ) { navBackStackEntry ->
+          val workoutId = navBackStackEntry.arguments?.getInt("workoutId") ?: throw IllegalStateException("workoutId não encontrado nos argumentos de navegação")
+          ExerciseListScreen(workoutId,navController, exerciseListViewmodel)
         }
       }
     }

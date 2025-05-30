@@ -59,13 +59,11 @@ fun WorkoutScreen(
   viewModel: WorkoutViewModel
 ) {
   LaunchedEffect(Unit) {
-    println("WorkoutId: $workoutId" )
     viewModel.getWorkout(workoutId)
   }
   Scaffold(
     topBar = {
       TopAppBar(
-//        colors = TopAppBarColors(containerColor = MaterialTheme.colorScheme.onBackground, scrolledContainerColor = MaterialTheme.colorScheme.onBackground, navigationIconContentColor = MaterialTheme.colorScheme.primary, titleContentColor = MaterialTheme.colorScheme.tertiary, actionIconContentColor = MaterialTheme.colorScheme.tertiary),
         title = {},
         navigationIcon = {
           IconButton(onClick = {
@@ -73,17 +71,17 @@ fun WorkoutScreen(
           }) {
             Icon(
               painter = painterResource(R.drawable.ic_back_24),
+              tint = MaterialTheme.colorScheme.primary,
               contentDescription = stringResource(R.string.back_icon)
             )
           }
         },
-
-        )
+      )
     },
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-//          viewModel.openDialog()
+          navController.navigate("${Screens.EXERCISE_SCREEN.name}?workoutId=${workoutId}")
         },
         containerColor = MaterialTheme.colorScheme.secondary
       ) {
@@ -108,7 +106,7 @@ fun WorkoutScreen(
 }
 
 @Composable
-fun Header(
+private fun Header(
   workoutName: String,
 ) {
   Row(
@@ -126,7 +124,7 @@ fun Header(
 }
 
 @Composable
-fun WorkoutInfo(
+private fun WorkoutInfo(
   navController: NavController
 ) {
   Row(
@@ -220,7 +218,7 @@ fun WorkoutInfo(
 }
 
 @Composable
-fun ExerciseList(
+private fun ExerciseList(
   navController: NavController,
   exercises: List<ExerciseModel> = emptyList()
 ) {
@@ -243,7 +241,7 @@ fun ExerciseList(
 }
 
 @Composable
-fun EmptyExercise() {
+private fun EmptyExercise() {
   Column(
     modifier = Modifier.fillMaxSize(),
     horizontalAlignment = Alignment.CenterHorizontally,

@@ -65,7 +65,7 @@ fun RoutineScreen(
 }
 
 @Composable
-fun Header(
+private fun Header(
   userName: String,
   navController: NavController,
   profileImage: Painter? = null
@@ -144,7 +144,7 @@ fun Header(
 }
 
 @Composable
-fun MyWorkouts(navController: NavController) {
+private fun MyWorkouts(navController: NavController) {
   Text(
     text = "Meus treinos",
     style = Typography.titleLarge,
