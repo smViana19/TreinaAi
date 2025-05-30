@@ -55,4 +55,9 @@
     <string name="workout_exercise_list_tittle">Exercise list</string>
     <string name="workout_exercise_label">Exercises</string>
     <string name="workout_exercise_alert_empty_list">Your exercise list is empty!</string>
+    <string name="exercise_choose_title">Choose the exercise</string>
+    <string name="search_icon">Search icon</string>
+    <string name="exercise_find_placeholder">Search</string>
+    <string name="star_unfavorite_icon">Unfavorite icon</string>
+    <string name="star_favorite_icon">Favorite icon</string>
 </resources>
