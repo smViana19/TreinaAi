@@ -14,6 +14,8 @@ val DarkTextColor = Color(0xFF1F2937)
 val BorderColor = Color(0xFF9CA3AF)
 val PlaceholderColor = Color(0xFF9CA3AF)
 val OnSecondary = Color(0xFFFAFAFA)
+val SubtleSurfaceLight = Color(0xFFF3F3F3)
+val SubtleSurfaceDark = Color(0xFF172238)
 
 
 val BorderInputColor = BorderColor

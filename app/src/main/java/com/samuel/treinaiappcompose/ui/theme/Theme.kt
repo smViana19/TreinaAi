@@ -19,7 +19,7 @@ val DarkColorScheme = darkColorScheme(
   onPrimary = ButtonContentColorDark,
   onSecondary = OnSecondary,
   onBackground = TitleTextColorDark,
-  onSurface = TitleTextColorDark,
+  onSurface = SubtleSurfaceDark,
   outline = BorderInputColor
 )
 
@@ -32,7 +32,7 @@ val LightColorScheme = lightColorScheme(
   onPrimary = ButtonContentColorLight,
   onSecondary = OnSecondary,
   onBackground = TitleTextColorLight,
-  onSurface = TitleTextColorLight,
+  onSurface = SubtleSurfaceLight,
   outline = BorderInputColor,
 
 )
