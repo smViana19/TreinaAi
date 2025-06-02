@@ -1,0 +1,4 @@
+package com.samuel.treinaiappcompose.viewmodels
+
+class ExerciseScreenViewModelTest {
+}
