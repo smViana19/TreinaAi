@@ -304,7 +304,7 @@ private fun LayoutGrid() {
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
     modifier = Modifier.padding(horizontal = 8.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp), // Espaçamento horizontal ENTRE os itens
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
     verticalArrangement = Arrangement.spacedBy(8.dp)
   ) {
     items(items) { itemName ->

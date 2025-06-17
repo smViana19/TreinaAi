@@ -2,6 +2,7 @@ package com.samuel.treinaiappcompose.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -111,17 +114,22 @@ fun WorkoutListScreen(
         }
         Spacer(modifier = Modifier.height(32.dp))
 
-        LazyColumn(
-          modifier = Modifier
-            .weight(1f),
-          contentPadding = PaddingValues(bottom = 80.dp)
-        ) {
-          items(viewModel.workouts.value) { workout ->
-            AppCard(title = workout.name,
-              onClick = {
-                navController.navigate("${Screens.WORKOUT_SCREEN.name}?workoutId=${workout.id}")
-              })
+        if (viewModel.workouts.value.isNotEmpty()) {
+          LazyColumn(
+            modifier = Modifier
+              .weight(1f)
+              .padding(16.dp),
+            contentPadding = PaddingValues(bottom = 80.dp)
+          ) {
+            items(viewModel.workouts.value) { workout ->
+              AppCard(title = workout.name,
+                onClick = {
+                  navController.navigate("${Screens.WORKOUT_SCREEN.name}?workoutId=${workout.id}")
+                })
+            }
           }
+        } else {
+          EmptyWorkouts()
         }
       }
       if (viewModel.dialogState.value.open) {
@@ -158,6 +166,32 @@ fun WorkoutListScreen(
       }
     }
   )
+}
+
+@Composable
+private fun EmptyWorkouts() {
+  Column(
+    modifier = Modifier.fillMaxSize(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+  ) {
+    Icon(
+      painter = painterResource(R.drawable.ic_dumbbel_24),
+      tint = MaterialTheme.colorScheme.outline,
+      contentDescription = stringResource(R.string.dumbbel_icon)
+    )
+    Text(
+      text = stringResource(R.string.workout_exercise_label),
+      style = MaterialTheme.typography.titleMedium,
+      color = MaterialTheme.colorScheme.primary,
+    )
+    Text(
+      text = stringResource(R.string.workout_exercise_alert_empty_list),
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.tertiary,
+    )
+
+  }
 }
 
 @Preview(showBackground = true)

@@ -75,6 +75,8 @@ fun AppTextField(
     colors = OutlinedTextFieldDefaults.colors(
       unfocusedBorderColor = MaterialTheme.colorScheme.outline,
       focusedBorderColor = MaterialTheme.colorScheme.secondary,
+      focusedTextColor = MaterialTheme.colorScheme.primary,
+      unfocusedTextColor = MaterialTheme.colorScheme.primary
     ),
   )
 }
