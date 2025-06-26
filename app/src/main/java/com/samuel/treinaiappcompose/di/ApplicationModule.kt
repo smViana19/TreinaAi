@@ -2,6 +2,8 @@ package com.samuel.treinaiappcompose.di
 
 import android.app.Application
 import androidx.room.Room
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.data.local.database.AppDatabase
 import com.samuel.treinaiappcompose.data.local.database.dao.ExerciseDao
 import com.samuel.treinaiappcompose.data.local.database.dao.ExerciseSetDao
@@ -68,4 +70,12 @@ object ApplicationModule {
   fun provideExerciseSetDao(appDatabase: AppDatabase): ExerciseSetDao {
     return appDatabase.getExerciseSetDao()
   }
+
+  @Provides
+  @Singleton
+  fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+  @Provides
+  @Singleton
+  fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 }
