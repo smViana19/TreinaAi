@@ -11,7 +11,6 @@ import com.samuel.treinaiappcompose.ui.navigation.MainNavigation
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
