@@ -17,6 +17,12 @@ interface ExerciseDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertExercise(exercise: ExerciseModel): Long
 
+  //  @Query()
+  suspend fun retrieveAndBulkInsertExercises() //TODO: AJUSTAR A QUERY CERTA PARA FAZER A SINCRONIZACAO
+
+  //@Query()
+  suspend fun retrieveAndInsertExercises()
+
   @Query(
     """
       SELECT * FROM exercises WHERE workout_id = :workoutId

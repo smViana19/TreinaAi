@@ -12,10 +12,8 @@ class ExerciseListScreenViewModel @Inject constructor(
   private val exerciseRepository : ExerciseRepository
 ): ViewModel() {
 
-
   fun filterExercises(searchText: String) {
     viewModelScope.launch {
-      //todo
     }
   }
 

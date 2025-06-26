@@ -1,5 +1,6 @@
 package com.samuel.treinaiappcompose.data.repository
 
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.data.local.database.dao.ExerciseAndSets
 import com.samuel.treinaiappcompose.data.local.database.dao.ExerciseDao
 import com.samuel.treinaiappcompose.data.local.database.model.ExerciseModel
@@ -8,7 +9,8 @@ import javax.inject.Singleton
 
 @Singleton
 class ExerciseRepository @Inject constructor(
-  private val exerciseDao: ExerciseDao
+  private val exerciseDao: ExerciseDao,
+  private val firestore: FirebaseFirestore
 ) {
   suspend fun getExercises(): List<ExerciseModel> {
     return exerciseDao.getAllExercises()
@@ -26,4 +28,9 @@ class ExerciseRepository @Inject constructor(
     return exerciseDao.getAllExercisesAndSets(workoutId)
   }
 
+  suspend fun retrieveAndBulkInsertExercises(exercises: List<ExerciseModel>) {}
+
+  suspend fun retrieveAndInsertExercises() {
+
+  }
 }
