@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.data.repository.AuthRepository
 import com.samuel.treinaiappcompose.ui.state.AppState
 import com.samuel.treinaiappcompose.ui.state.DialogState
 import com.samuel.treinaiappcompose.ui.state.DialogType
@@ -22,9 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpScreenViewModel @Inject constructor(
-
+  private val authRepository: AuthRepository
 ) : ViewModel() {
-  private val firebaseAuth = FirebaseAuth.getInstance()
+//  private val firebaseAuth = FirebaseAuth.getInstance()
 
   private val _name = mutableStateOf("")
   val name: MutableState<String> = _name
@@ -71,11 +72,12 @@ class SignUpScreenViewModel @Inject constructor(
           _state.value = _state.value.copy(isLoading = false)
           return@launch
         }
-        val result =
-          firebaseAuth.createUserWithEmailAndPassword(_email.value, _password.value).await()
+        val result = authRepository.signUpWithEmailAndPassword(_email.value, _password.value)
+
         val user = result.user
+
         if (user != null) {
-          saveUserData(user.uid, _name.value)
+          authRepository.saveUserData(user.uid, _name.value)
         }
 
         _dialogState.value = DialogState(
@@ -149,16 +151,14 @@ class SignUpScreenViewModel @Inject constructor(
     _state.value = _state.value.copy(isSuccess = false)
   }
 
-  private suspend fun saveUserData(uid: String, name: String) {
-    val userMap = hashMapOf(
-      "name" to name,
-    )
-    try {
-      FirebaseFirestore.getInstance().collection("users").document(uid).set(userMap).await()
-    } catch (e: Exception) {
-      e.printStackTrace()
-    }
-  }
+//  private suspend fun saveUserData(uid: String, name: String) {
+//    val userMap = hashMapOf("name" to name)
+//    try {
+//      FirebaseFirestore.getInstance().collection("users").document(uid).set(userMap).await()
+//    } catch (e: Exception) {
+//      e.printStackTrace()
+//    }
+//  }
 
   private fun onClickButtonDismissDialog() {
     _dialogState.value = DialogState(

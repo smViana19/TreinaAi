@@ -33,7 +33,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.data.repository.AuthRepository
 import com.samuel.treinaiappcompose.ui.components.AppCheckbox
 import com.samuel.treinaiappcompose.ui.components.AppDialog
 import com.samuel.treinaiappcompose.ui.components.AppLoader
@@ -54,7 +57,7 @@ fun SignInScreen(
 
   val focusManager = LocalFocusManager.current
   LaunchedEffect(viewModel.state.value.isSuccess) {
-    if(viewModel.state.value.isSuccess) {
+    if (viewModel.state.value.isSuccess) {
       navController.navigate(Screens.ROUTINE_SCREEN.name)
       viewModel.resetSuccessState()
     }
@@ -185,7 +188,10 @@ fun SignInScreen(
 @Composable
 private fun SignInScreenPreview() {
   val navController = rememberNavController()
-  val viewModel = SignInScreenViewModel()
+  val firebaseAuthMock = FirebaseAuth.getInstance()
+  val firebaseFirestoreMock = FirebaseFirestore.getInstance()
+  val authRepository = AuthRepository(firebaseAuthMock, firebaseFirestoreMock)
+  val viewModel = SignInScreenViewModel(authRepository)
   AppTheme {
     SignInScreen(viewModel, navController)
   }

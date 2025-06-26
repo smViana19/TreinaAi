@@ -6,24 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.samuel.treinaiappcompose.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutineScreenViewModel @Inject constructor() : ViewModel() {
-  private val auth = FirebaseAuth.getInstance()
-  private val firestore = FirebaseFirestore.getInstance()
+class RoutineScreenViewModel @Inject constructor(
+  private val authRepository: AuthRepository,
+) : ViewModel() {
 
   private val _username = mutableStateOf("")
   val username: MutableState<String> = _username
 
   fun getUsername() {
-    val uid = auth.currentUser?.uid ?: ""
+    val uid = authRepository.getCurrentUser()?.uid ?: ""
     viewModelScope.launch {
-      val findName = firestore.collection("users").document(uid).get().await()
-      _username.value = findName.getString("name") ?: ""
+      _username.value = authRepository.getCurrentUserNameById(uid)
     }
   }
+
+
 }

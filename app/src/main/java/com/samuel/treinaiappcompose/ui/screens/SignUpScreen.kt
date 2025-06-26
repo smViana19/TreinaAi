@@ -30,7 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.data.repository.AuthRepository
+import com.samuel.treinaiappcompose.data.repository.WorkoutRepository
 import com.samuel.treinaiappcompose.ui.components.AppDialog
 import com.samuel.treinaiappcompose.ui.components.AppLoader
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
@@ -51,9 +55,9 @@ fun SignUpScreen(
   val focusManager = LocalFocusManager.current
 
   LaunchedEffect(viewModel.state.value.isSuccess) {
-  if(viewModel.state.value.isSuccess) {
-    navController.navigate(Screens.SIGNIN_SCREEN.name)
-    viewModel.resetSuccessState()
+    if (viewModel.state.value.isSuccess) {
+      navController.navigate(Screens.SIGNIN_SCREEN.name)
+      viewModel.resetSuccessState()
     }
   }
 
@@ -164,7 +168,7 @@ fun SignUpScreen(
       }
     }
   )
-  if(viewModel.state.value.isLoading) {
+  if (viewModel.state.value.isLoading) {
     AppLoader()
   }
   AppDialog(state = viewModel.dialogState.value)
@@ -174,8 +178,13 @@ fun SignUpScreen(
 @Composable
 private fun SignUpScreenPreview() {
   val navController = rememberNavController()
+
+
   AppTheme {
-    val viewModel = SignUpScreenViewModel()
+    val firebaseAuthMock  = FirebaseAuth.getInstance()
+    val firebaseFirestoreMock  = FirebaseFirestore.getInstance()
+    val repository = AuthRepository(firebaseAuthMock, firebaseFirestoreMock)
+    val viewModel = SignUpScreenViewModel(repository)
     SignUpScreen(
       viewModel = viewModel,
       navController

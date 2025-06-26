@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthWebException
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.data.repository.AuthRepository
 import com.samuel.treinaiappcompose.ui.state.AppState
 import com.samuel.treinaiappcompose.ui.state.DialogState
 import com.samuel.treinaiappcompose.ui.state.DialogType
@@ -20,9 +21,10 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInScreenViewModel @Inject constructor() : ViewModel() {
+class SignInScreenViewModel @Inject constructor(
+  private val authRepository: AuthRepository
+) : ViewModel() {
 
-  private val firebaseAuth = FirebaseAuth.getInstance()
 
   private val _email = mutableStateOf("")
   val email: MutableState<String> = _email
@@ -40,7 +42,7 @@ class SignInScreenViewModel @Inject constructor() : ViewModel() {
     viewModelScope.launch {
       try {
         _state.value = _state.value.copy(isLoading = true)
-        firebaseAuth.signInWithEmailAndPassword(_email.value, _password.value).await()
+        authRepository.signInWithEmailAndPassword(_email.value, _password.value)
 
         _dialogState.value = DialogState(
           open = true,
