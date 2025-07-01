@@ -11,7 +11,7 @@ import com.samuel.treinaiappcompose.data.local.database.model.WorkoutModel
 
 @Database(
   entities = [ExerciseModel::class, WorkoutModel::class, ExerciseSetModel::class],
-  version = 1
+  version =2
 )
 abstract class AppDatabase : RoomDatabase() {
   /**

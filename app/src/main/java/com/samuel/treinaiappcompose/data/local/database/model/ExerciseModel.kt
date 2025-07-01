@@ -21,7 +21,7 @@ data class ExerciseModel(
   @ColumnInfo(name = "id")
   var id: Int = 0,
   @ColumnInfo(name = "name")
-  val name: String? = null,
+  val name: String = "",
   @ColumnInfo(name = "image_url")
   val imageUrl: String? = null,
   @ColumnInfo(name = "description")

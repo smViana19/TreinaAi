@@ -1,19 +1,25 @@
 package com.samuel.treinaiappcompose.ui.screens
 
+import AppBottomSheet
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,16 +32,21 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -45,7 +56,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
+import com.samuel.treinaiappcompose.data.local.database.model.ExerciseModel
 import com.samuel.treinaiappcompose.data.mocks.ExerciseDaoMock
 import com.samuel.treinaiappcompose.data.repository.ExerciseRepository
 import com.samuel.treinaiappcompose.ui.components.AppButton
@@ -55,6 +68,7 @@ import com.samuel.treinaiappcompose.ui.components.AppTextField
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.viewmodels.ExerciseListScreenViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,8 +78,15 @@ fun ExerciseListScreen(
   viewModel: ExerciseListScreenViewModel
 ) {
   val isGridLayout = remember { mutableStateOf(false) }
+  var showBottomSheet by remember { mutableStateOf(false) }
+  val sheetState = rememberModalBottomSheetState(
+    skipPartiallyExpanded = true,
+    confirmValueChange = { true }
+  )
+  val scope = rememberCoroutineScope()
 
   LaunchedEffect(Unit) {
+
   }
   Scaffold(
     topBar = {
@@ -93,7 +114,7 @@ fun ExerciseListScreen(
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-//          viewModel.openDialog()
+          showBottomSheet = true
         },
         containerColor = MaterialTheme.colorScheme.secondary
       ) {
@@ -118,15 +139,47 @@ fun ExerciseListScreen(
           onSelectLayout = { isGridLayout.value = it })
         Column {
           if (isGridLayout.value) {
-            LayoutGrid()
+            LayoutGrid(viewModel.exercises.value)
           } else {
-            LayoutColumn()
+            LayoutColumn(viewModel.exercises.value)
           }
         }
 
       }
     }
+
   )
+  if (showBottomSheet) {
+    ModalBottomSheet(
+      onDismissRequest = {
+        showBottomSheet = false
+      },
+      sheetState = sheetState,
+      containerColor = Color.White,
+      dragHandle = {
+        Spacer(
+          modifier = Modifier
+            .padding(bottom = 24.dp, top = 8.dp)
+            .height(3.dp)
+            .width(38.dp)
+            .clip(CircleShape)
+            .background(Color(0xFFE0E0E0))
+        )
+      },
+    ) {
+      AppBottomSheet(
+        onDismiss = {
+          scope.launch { sheetState.hide() }.invokeOnCompletion {
+            if (!sheetState.isVisible) {
+              showBottomSheet = false
+            }
+          }
+        },
+        navController = navController,
+      )
+    }
+  }
+
 }
 
 @Composable
@@ -291,15 +344,9 @@ private fun Filters(
 }
 
 @Composable
-private fun LayoutGrid() {
-  val items = listOf(
-    "Supino",
-    "Pull over",
-    "Agachamento",
-    "Rosca Direta",
-    "Tríceps Testa",
-    "Elevação Lateral"
-  )
+private fun LayoutGrid(
+  items: List<ExerciseModel>
+) {
   var isItemFavorite by remember { mutableStateOf(false) }
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
@@ -307,10 +354,10 @@ private fun LayoutGrid() {
     horizontalArrangement = Arrangement.spacedBy(8.dp),
     verticalArrangement = Arrangement.spacedBy(8.dp)
   ) {
-    items(items) { itemName ->
+    items(items) { i ->
       AppCardGridVertical(
         onClick = {},
-        title = itemName,
+        title = i.name,
         onFavorite = { isItemFavorite = !isItemFavorite },
         favorite = isItemFavorite
       )
@@ -319,20 +366,49 @@ private fun LayoutGrid() {
 }
 
 @Composable
-private fun LayoutColumn() {
-  val items = listOf("Supino", "Pull over", "Agachamento")
+private fun LayoutColumn(
+  items: List<ExerciseModel>
+) {
   var favorite = false
-  LazyColumn(
-    modifier = Modifier.padding(horizontal = 16.dp)
-  ) {
-    items(items) { i ->
-      AppCardImage(onClick = {}, title = i, onFavorite = {
-        favorite = !favorite
-      })
-
+  if (items.isNotEmpty()) {
+    LazyColumn(
+      modifier = Modifier.padding(horizontal = 16.dp)
+    ) {
+      items(items) { i ->
+        AppCardImage(onClick = {}, title = i.name, onFavorite = {
+          favorite = !favorite
+        })
+      }
     }
+  } else {
+    EmptyExercises()
   }
+}
 
+@Composable
+private fun EmptyExercises() {
+  Column(
+    modifier = Modifier.fillMaxSize(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+  ) {
+    Icon(
+      painter = painterResource(R.drawable.ic_dumbbel_24),
+      tint = MaterialTheme.colorScheme.outline,
+      contentDescription = stringResource(R.string.dumbbel_icon)
+    )
+    Text(
+      text = stringResource(R.string.workout_exercise_label),
+      style = MaterialTheme.typography.titleMedium,
+      color = MaterialTheme.colorScheme.primary,
+    )
+    Text(
+      text = stringResource(R.string.workout_exercise_alert_empty_list),
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.tertiary,
+    )
+
+  }
 }
 
 
@@ -341,7 +417,8 @@ private fun LayoutColumn() {
 private fun ExerciseListScreenPreview() {
   val navController = rememberNavController()
   val exerciseDao = ExerciseDaoMock()
-  val exerciseRepository = ExerciseRepository(exerciseDao)
+  val firebaseFirestoreMock = FirebaseFirestore.getInstance()
+  val exerciseRepository = ExerciseRepository(exerciseDao, firebaseFirestoreMock)
   val viewModel = ExerciseListScreenViewModel(exerciseRepository)
   AppTheme {
     ExerciseListScreen(1, navController, viewModel)
