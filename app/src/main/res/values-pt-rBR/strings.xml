@@ -59,4 +59,10 @@
     <string name="exercise_find_placeholder">Pesquisar</string>
     <string name="star_unfavorite_icon">Icone nao favorito</string>
     <string name="star_favorite_icon">Icone favorito</string>
+    <string name="exercise_bottom_sheet_title">Adicionar exercício</string>
+    <string name="placeholder_exercise_name">Digite o nome do exercício</string>
+    <string name="placeholder_exercise_description">Digite a descrição</string>
+    <string name="placeholder_workout_name">Digite o nome do treino</string>
+    <string name="placeholder_workout_description">Digite a descrição</string>
+    <string name="button_save">Salvar</string>
 </resources>

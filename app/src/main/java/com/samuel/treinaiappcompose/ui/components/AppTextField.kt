@@ -36,7 +36,7 @@ enum class AppTextFieldVariant {
 }
 
 @Composable
-fun AppTextField(
+fun AppOutlinedTextField(
   modifier: Modifier = Modifier,
   value: String,
   onValueChange: (String) -> Unit,
@@ -89,7 +89,7 @@ fun AppPasswordTextField(
   onValueChange: (String) -> Unit,
 ) {
   var isPasswordVisible by remember { mutableStateOf(false) }
-  AppTextField(
+  AppOutlinedTextField(
     modifier = modifier,
     value = value,
     onValueChange = onValueChange,
@@ -124,7 +124,7 @@ fun AppPasswordTextField(
 @Composable
 private fun AppTextFieldOutlinedPreview() {
   AppTheme {
-    AppTextField(
+    AppOutlinedTextField(
       value = "samuel@gmail.com",
       leadingIcon = {
         Icon(

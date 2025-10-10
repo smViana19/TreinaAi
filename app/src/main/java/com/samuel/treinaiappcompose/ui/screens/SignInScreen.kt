@@ -41,7 +41,7 @@ import com.samuel.treinaiappcompose.ui.components.AppCheckbox
 import com.samuel.treinaiappcompose.ui.components.AppDialog
 import com.samuel.treinaiappcompose.ui.components.AppLoader
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
-import com.samuel.treinaiappcompose.ui.components.AppTextField
+import com.samuel.treinaiappcompose.ui.components.AppOutlinedTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
@@ -112,7 +112,7 @@ fun SignInScreen(
         Column(
           modifier = Modifier.fillMaxWidth(),
         ) {
-          AppTextField(
+          AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = viewModel.email.value,
             placeholder = stringResource(R.string.email_placeholder),

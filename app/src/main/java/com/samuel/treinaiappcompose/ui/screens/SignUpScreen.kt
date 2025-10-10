@@ -34,14 +34,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samuel.treinaiappcompose.R
 import com.samuel.treinaiappcompose.data.repository.AuthRepository
-import com.samuel.treinaiappcompose.data.repository.WorkoutRepository
 import com.samuel.treinaiappcompose.ui.components.AppDialog
 import com.samuel.treinaiappcompose.ui.components.AppLoader
 import com.samuel.treinaiappcompose.ui.components.AppPasswordTextField
-import com.samuel.treinaiappcompose.ui.components.AppTextField
+import com.samuel.treinaiappcompose.ui.components.AppOutlinedTextField
 import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
-import com.samuel.treinaiappcompose.ui.state.AppState
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.theme.Typography
 import com.samuel.treinaiappcompose.ui.viewmodels.SignUpScreenViewModel
@@ -111,7 +109,7 @@ fun SignUpScreen(
         Column(
           modifier = Modifier.fillMaxWidth(),
         ) {
-          AppTextField(
+          AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = viewModel.name.value,
             placeholder = stringResource(R.string.name_placeholder),
@@ -130,7 +128,7 @@ fun SignUpScreen(
             }
           )
           Spacer(modifier = Modifier.height(16.dp))
-          AppTextField(
+          AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = viewModel.email.value,
             placeholder = stringResource(R.string.email_placeholder),

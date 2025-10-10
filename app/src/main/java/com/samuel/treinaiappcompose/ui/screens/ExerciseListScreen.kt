@@ -1,6 +1,6 @@
 package com.samuel.treinaiappcompose.ui.screens
 
-import AppBottomSheet
+import AppBottomSheetTextFields
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -64,7 +64,8 @@ import com.samuel.treinaiappcompose.data.repository.ExerciseRepository
 import com.samuel.treinaiappcompose.ui.components.AppButton
 import com.samuel.treinaiappcompose.ui.components.AppCardGridVertical
 import com.samuel.treinaiappcompose.ui.components.AppCardImage
-import com.samuel.treinaiappcompose.ui.components.AppTextField
+import com.samuel.treinaiappcompose.ui.components.AppOutlinedTextField
+import com.samuel.treinaiappcompose.ui.components.DefaultAppButton
 import com.samuel.treinaiappcompose.ui.navigation.Screens
 import com.samuel.treinaiappcompose.ui.theme.AppTheme
 import com.samuel.treinaiappcompose.ui.viewmodels.ExerciseListScreenViewModel
@@ -167,7 +168,7 @@ fun ExerciseListScreen(
         )
       },
     ) {
-      AppBottomSheet(
+      AppBottomSheetTextFields(
         onDismiss = {
           scope.launch { sheetState.hide() }.invokeOnCompletion {
             if (!sheetState.isVisible) {
@@ -175,7 +176,30 @@ fun ExerciseListScreen(
             }
           }
         },
-        navController = navController,
+        title = stringResource(R.string.exercise_bottom_sheet_title),
+        formContent = {
+          Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+          ) {
+            AppOutlinedTextField(
+              modifier = Modifier.fillMaxWidth(),
+              value = "",//TODO viewmodel...
+              onValueChange = {},
+              placeholder = stringResource(R.string.placeholder_exercise_name)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            AppOutlinedTextField(
+              modifier = Modifier.fillMaxWidth(),
+              value = "", //TODO viewmodel...
+              onValueChange = {},
+              placeholder = stringResource(R.string.placeholder_exercise_description)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            DefaultAppButton(onClick = {}, text = stringResource(R.string.button_save))
+            Spacer(modifier = Modifier.height(16.dp))
+          }
+        }
       )
     }
   }
@@ -195,7 +219,7 @@ private fun SearchInput(
     val focusManager = LocalFocusManager.current
 
 
-    AppTextField(
+    AppOutlinedTextField(
       modifier = Modifier.fillMaxWidth(),
       value = searchText,
       onValueChange = {
@@ -348,20 +372,24 @@ private fun LayoutGrid(
   items: List<ExerciseModel>
 ) {
   var isItemFavorite by remember { mutableStateOf(false) }
-  LazyVerticalGrid(
-    columns = GridCells.Fixed(2),
-    modifier = Modifier.padding(horizontal = 8.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp)
-  ) {
-    items(items) { i ->
-      AppCardGridVertical(
-        onClick = {},
-        title = i.name,
-        onFavorite = { isItemFavorite = !isItemFavorite },
-        favorite = isItemFavorite
-      )
+  if (items.isNotEmpty()) {
+    LazyVerticalGrid(
+      columns = GridCells.Fixed(2),
+      modifier = Modifier.padding(horizontal = 8.dp),
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+      verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+      items(items) { i ->
+        AppCardGridVertical(
+          onClick = {},
+          title = i.name,
+          onFavorite = { isItemFavorite = !isItemFavorite },
+          favorite = isItemFavorite
+        )
+      }
     }
+  } else {
+    EmptyExercises()
   }
 }
 

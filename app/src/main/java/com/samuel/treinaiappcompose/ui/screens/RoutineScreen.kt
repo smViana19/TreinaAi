@@ -100,7 +100,7 @@ private fun Header(
               .background(MaterialTheme.colorScheme.secondary)
           ) {
             Text(
-              text = if (userName.isNotEmpty()) userName.first().toString() else "?",
+              text = if (userName.isNotEmpty()) userName.first().uppercase() else "?",
               style = MaterialTheme.typography.titleMedium,
               color = MaterialTheme.colorScheme.onSecondary,
               modifier = Modifier.align(Alignment.Center)

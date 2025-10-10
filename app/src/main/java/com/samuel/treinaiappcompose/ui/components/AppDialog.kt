@@ -202,9 +202,9 @@ private fun FormDialogPreview() {
       title = "Formulario",
       state = DialogState(open = true),
       formContent = {
-        AppTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
+        AppOutlinedTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
         Spacer(modifier = Modifier.height(8.dp))
-        AppTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
+        AppOutlinedTextField(value = "", onValueChange = {}, placeholder = "Digite o nome")
       })
   }
 }
