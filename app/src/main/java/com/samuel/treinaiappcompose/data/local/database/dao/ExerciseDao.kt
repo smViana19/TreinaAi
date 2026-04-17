@@ -9,7 +9,7 @@ import com.samuel.treinaiappcompose.data.local.database.model.ExerciseModel
 @Dao
 interface ExerciseDao {
   @Query("SELECT * FROM exercises")
-  suspend fun getAllExercises(): List<ExerciseModel>
+  suspend fun findAllExercises(): List<ExerciseModel>
 
   @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
   suspend fun bulkInsertExercises(exercise: List<ExerciseModel>)

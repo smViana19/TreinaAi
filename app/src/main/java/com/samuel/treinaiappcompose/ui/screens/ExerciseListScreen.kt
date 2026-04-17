@@ -184,19 +184,26 @@ fun ExerciseListScreen(
           ) {
             AppOutlinedTextField(
               modifier = Modifier.fillMaxWidth(),
-              value = "",//TODO viewmodel...
-              onValueChange = {},
+              value = viewModel.name.value,
+              onValueChange = { newValue ->
+                viewModel.name.value = newValue
+
+              },
               placeholder = stringResource(R.string.placeholder_exercise_name)
             )
             Spacer(modifier = Modifier.height(8.dp))
             AppOutlinedTextField(
               modifier = Modifier.fillMaxWidth(),
-              value = "", //TODO viewmodel...
-              onValueChange = {},
+              value = viewModel.description.value,
+              onValueChange = {newValue ->
+                viewModel.description.value = newValue
+              },
               placeholder = stringResource(R.string.placeholder_exercise_description)
             )
             Spacer(modifier = Modifier.height(16.dp))
-            DefaultAppButton(onClick = {}, text = stringResource(R.string.button_save))
+            DefaultAppButton(onClick = {
+                viewModel.insertExercise(workoutId)
+            }, text = stringResource(R.string.button_save))
             Spacer(modifier = Modifier.height(16.dp))
           }
         }

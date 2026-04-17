@@ -4,7 +4,7 @@ import com.samuel.treinaiappcompose.data.local.database.dao.ExerciseDao
 import com.samuel.treinaiappcompose.data.local.database.model.ExerciseModel
 
 class ExerciseDaoMock : ExerciseDao {
-  override suspend fun getAllExercises(): List<ExerciseModel> {
+  override suspend fun findAllExercises(): List<ExerciseModel> {
     TODO("Not yet implemented")
   }
 

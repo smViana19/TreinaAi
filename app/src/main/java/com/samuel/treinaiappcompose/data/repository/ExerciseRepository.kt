@@ -11,15 +11,16 @@ class ExerciseRepository @Inject constructor(
   private val exerciseDao: ExerciseDao,
   private val firestore: FirebaseFirestore
 ) {
-  suspend fun getExercises(): List<ExerciseModel> {
-    return exerciseDao.getAllExercises()
+  suspend fun findAllExercises(): List<ExerciseModel> {
+    return exerciseDao.findAllExercises()
   }
 
   suspend fun getAllExercisesByWorkoutId(workoutId: Int): List<ExerciseModel> {
     return exerciseDao.getAllExercisesByWorkoutId(workoutId)
   }
 
-  suspend fun insertExercise(exercise: ExerciseModel): Long {
+  suspend fun insertExercise(exerciseName: String, exerciseDescription: String, workoutId: Int): Long {
+    val exercise = ExerciseModel(name = exerciseName, description = exerciseDescription, workoutId= workoutId)
     return exerciseDao.insertExercise(exercise)
   }
 
